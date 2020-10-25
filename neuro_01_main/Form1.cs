@@ -14,13 +14,9 @@ namespace neuro_01_main
     {
         public class helpfun
         {
-            public static float press(float s)
+            public static double press(double x)
             {
-                //   сжимающая функция
-                double ss = s;
-                double fss = 1 / (1 + Math.Exp(-ss));
-                float fs = Convert.ToSingle(fss);
-                return fs;
+                return 1.0 / (1.0 + Math.Exp(-x));
             }
         }
         //      однослойная нейронная сеть
@@ -31,22 +27,22 @@ namespace neuro_01_main
         const int mdc = 10; // число столбцов матрицы образа буквы
         const int mr = 10;
         const int mc = 7;
-        const float eps = 0.001f; // точность для w1
+        const double eps = 0.001f; // точность для w1
                                   //   
         int mx; // количество входных сигналов по факту
         int nn; // количество нейронов по факту
         int tn; // количество обучающих примеров по факту
                 //   
-        float[,] x = new float[mmax, tmax]; // входящие сигналы
-        float[,] y = new float[nmax, tmax]; // выходящие сигналы
-        float[,] dt = new float[nmax, tmax]; // обучающие примеры
-        float[,] w1 = new float[mmax, nmax]; // матрица весов
-        float[,] dw1 = new float[mmax, nmax]; // поправки к матрице весов
-        float[,] Ad = new float[mdr, mdc]; // буква А
-        float[,] Bd = new float[mdr, mdc]; // буква Б
-        float[,] Bdf = new float[mdr, mdc]; // буква дефектная
-        float[] xf = new float[mmax]; // входящий сигнал
-        float[] yf = new float[nmax]; // выходящий сигнал
+        double[,] x = new double[mmax, tmax]; // входящие сигналы
+        double[,] y = new double[nmax, tmax]; // выходящие сигналы
+        double[,] dt = new double[nmax, tmax]; // обучающие примеры
+        double[,] w1 = new double[mmax, nmax]; // матрица весов
+        double[,] dw1 = new double[mmax, nmax]; // поправки к матрице весов
+        double[,] Ad = new double[mdr, mdc]; // буква А
+        double[,] Bd = new double[mdr, mdc]; // буква Б
+        double[,] Bdf = new double[mdr, mdc]; // буква дефектная
+        double[] xf = new double[mmax]; // входящий сигнал
+        double[] yf = new double[nmax]; // выходящий сигнал
         public Form1()
         {
             InitializeComponent();
@@ -187,12 +183,12 @@ namespace neuro_01_main
             }
 
             // матрица весов
-            float eta = 1;
+            double eta = 1;
             for (int i = 1; i <= mx; i++)
             {
                 for (int j = 1; j <= nn; j++)
                 {
-                    w1[i, j] = Convert.ToSingle(Math.Pow(-1, (i + j)));
+                    w1[i, j] = Math.Pow(-1.0, (i + j));
                     dw1[i, j] = 0;
                 }
             }
@@ -207,7 +203,7 @@ namespace neuro_01_main
                 {
                     for (int j = 1; j <= nn; j++)
                     {
-                        float s0 = 0;
+                        double s0 = 0;
                         for (int i = 1; i <= mx; i++)
                         {
                             s0 = s0 + x[i, it] * w1[i, j];
@@ -223,13 +219,13 @@ namespace neuro_01_main
                 {
                     for (int j = 1; j <= nn; j++)
                     {
-                        float dEw = 0;
+                        double dEw = 0;
                         for (int it = 1; it <= tn; it++)
                         { // Image
                             dEw = dEw + (y[j, it] - dt[j, it]) * (1 - y[j, it]) * y[j, it] * x[i, it];
                         } // Image
-                        float tol = eps * Math.Abs(dEw) + eps;
-                        float error = Math.Abs(-dEw - dw1[i, j] / eta);
+                        double tol = eps * Math.Abs(dEw) + eps;
+                        double error = Math.Abs(-dEw - dw1[i, j] / eta);
                         if (error > tol)
                         {
                             Flag = 1;
@@ -262,7 +258,7 @@ namespace neuro_01_main
             textBox4.Text = "";
 
             // Распознование нечетко написанных букв
-            float rr = 0;
+            double rr = 0;
             for (int i = 0; i <= 9; i++)
             {
                 for (int j = 0; j <= 6; j++)
@@ -325,7 +321,7 @@ namespace neuro_01_main
             // calc y
             for (int j = 1; j <= nn; j++)
             {
-                float s0 = 0;
+                double s0 = 0;
                 for (int i = 0; i <= mx; i++)
                 {
                     s0 = s0 + xf[i] * w1[i, j];
