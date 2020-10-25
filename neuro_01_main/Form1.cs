@@ -197,7 +197,6 @@ namespace neuro_01_main
                 }
             }
 
-
             int iterm = 10;
             int Flag = 0;
             for (int iter = 1; iter <= iterm; iter++)
@@ -253,7 +252,7 @@ namespace neuro_01_main
                 }
             }
 
-            MessageBox.Show(" Education OK; Flag=" + Convert.ToString(Flag));
+            MessageBox.Show(String.Format(" Education OK; Flag={0}", Flag));
 
         }
 
@@ -302,7 +301,7 @@ namespace neuro_01_main
                     if (tt1 == "1")
                     {
                         Bdf[i + 1, j + 1] = 1;
-                    };
+                    }
                 }
             }
 
@@ -332,10 +331,7 @@ namespace neuro_01_main
                     s0 = s0 + xf[i] * w1[i, j];
                 }
                 yf[j] = helpfun.press(s0);
-                decimal yfj = Convert.ToDecimal(yf[j]);
-                string st1 = Convert.ToString(yfj);
-                st1 = st1.Substring(0, 4);
-                str = str + st1 + "  ";
+                str += String.Format("{0:f4}  ", yf[j]);
             }
             textBox5.Text = str;
             if ((yf[1] >= 0.8) & (yf[2] <= 0.2) & (yf[3] <= 0.2))
