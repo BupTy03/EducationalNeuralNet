@@ -14,20 +14,24 @@ namespace neuro_01_main
     public partial class Form1 : Form
     {
         // однослойная нейронная сеть
-        const int RowsCount = 10;
-        const int ColumnsCount = 7;
-        const double Epsilon = 0.001f; // точность для w1
+        private const int RowsCount = 10;
+        private const int ColumnsCount = 7;
+        private const double Epsilon = 0.001f; // точность для w1
 
-        const int InputsCount = RowsCount * ColumnsCount; // количество входных сигналов
-        const int NeuronsCount = 3; // количество нейронов
-        const int SamplesCount = 2; // количество обучающих примеров
+        private const int InputsCount = RowsCount * ColumnsCount; // количество входных сигналов
+        private const int NeuronsCount = 3; // количество нейронов
+        private const int SamplesCount = 2; // количество обучающих примеров
 
-        double[,] _inputsMtx = new double[InputsCount, SamplesCount];   // входящие сигналы
-        double[,] _outputsMtx = new double[NeuronsCount, SamplesCount]; // выходящие сигналы
-        double[,] _weightsMtx = new double[InputsCount, NeuronsCount];  // матрица весов
+        private double[,] _weightsMtx = new double[InputsCount, NeuronsCount];  // матрица весов
+
+        private double[][] _targets = new double[][]
+        {
+            new double[] { 1, 0, 0 },
+            new double[] { 0, 1, 0 }
+        };
 
         // буква А
-        double[,] _letterA = new double[,]
+        private double[,] _letterA = new double[,]
         {
             { 0, 0, 0, 0, 0, 1, 1 },
             { 0, 0, 0, 0, 1, 1, 1 },
@@ -42,7 +46,7 @@ namespace neuro_01_main
         };
 
         // буква Б
-        double[,] _letterB = new double[,]
+        private double[,] _letterB = new double[,]
         {
             { 1, 1, 1, 1, 1, 1, 1 },
             { 1, 1, 1, 1, 1, 1, 1 },
@@ -56,16 +60,12 @@ namespace neuro_01_main
             { 1, 1, 1, 1, 1, 1, 0 }
         };
 
-        double[,] ChoosenLetter => (_chooseLetterComboBox.SelectedIndex == 0) ? _letterA : _letterB;
-
-        double[][] _targets = new double[][]
-        {
-            new double[] { 1, 0, 0 },
-            new double[] { 0, 1, 0 }
-        };
-
         // новая буква
-        double[,] _newLetter = new double[RowsCount, ColumnsCount];
+        private double[,] _newLetter = new double[RowsCount, ColumnsCount];
+
+
+        private double[,] ChoosenLetter => (_chooseLetterComboBox.SelectedIndex == 0) ? _letterA : _letterB;
+        
 
         public Form1()
         {
@@ -127,12 +127,15 @@ namespace neuro_01_main
         {
             // обучение 
             // задание входных сигналов
+
+            // входящие сигналы
+            double[,] inputsMtx = new double[InputsCount, SamplesCount];
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
                 {                                       
-                    _inputsMtx[inputIndex, 0] = _letterA[row, col];
-                    _inputsMtx[inputIndex, 1] = _letterB[row, col];
+                    inputsMtx[inputIndex, 0] = _letterA[row, col];
+                    inputsMtx[inputIndex, 1] = _letterB[row, col];
                     inputIndex++;
                 }
             }
@@ -150,8 +153,8 @@ namespace neuro_01_main
                 Flag = 0;
 
                 // calc outputs
-                _outputsMtx = MathUtil.Multiply(MathUtil.Transform(_weightsMtx), _inputsMtx);
-                _outputsMtx = MathUtil.Apply(_outputsMtx, MathUtil.ActivationFunction.Sigmoid);
+                double[,] outputsMtx = MathUtil.Multiply(MathUtil.Transform(_weightsMtx), inputsMtx);
+                outputsMtx = MathUtil.Apply(outputsMtx, MathUtil.ActivationFunction.Sigmoid);
 
                 // Image
                 // optimization w
@@ -163,7 +166,7 @@ namespace neuro_01_main
                         double dEw = 0;
                         for (int sampleIndex = 0; sampleIndex < SamplesCount; sampleIndex++)
                         { // Image
-                            dEw += (_outputsMtx[neuronIndex, sampleIndex] - _targets[sampleIndex][neuronIndex]) * (1 - _outputsMtx[neuronIndex, sampleIndex]) * _outputsMtx[neuronIndex, sampleIndex] * _inputsMtx[inputIndex, sampleIndex];
+                            dEw += (outputsMtx[neuronIndex, sampleIndex] - _targets[sampleIndex][neuronIndex]) * (1 - outputsMtx[neuronIndex, sampleIndex]) * outputsMtx[neuronIndex, sampleIndex] * inputsMtx[inputIndex, sampleIndex];
                         } // Image
                         double tol = Epsilon * Math.Abs(dEw) + Epsilon;
                         double error = Math.Abs(-dEw - offsetsMtx[inputIndex, neuronIndex] / eta);
