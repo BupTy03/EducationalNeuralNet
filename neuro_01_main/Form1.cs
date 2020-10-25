@@ -26,14 +26,13 @@ namespace neuro_01_main
         const int ColumnsCount = 7;
         const double Epsilon = 0.001f; // точность для w1
 
-        const int InputsCount = RowsCount * ColumnsCount; // количество входных сигналов по факту
-        const int NeuronsCount = 3; // количество нейронов по факту
-        const int SamplesCount = 2; // количество обучающих примеров по факту
+        const int InputsCount = RowsCount * ColumnsCount; // количество входных сигналов
+        const int NeuronsCount = 3; // количество нейронов
+        const int SamplesCount = 2; // количество обучающих примеров
 
-        double[,] _inputsMtx = new double[InputsCount, SamplesCount]; // входящие сигналы
+        double[,] _inputsMtx = new double[InputsCount, SamplesCount];   // входящие сигналы
         double[,] _outputsMtx = new double[NeuronsCount, SamplesCount]; // выходящие сигналы
-        double[,] _weightsMtx = new double[InputsCount, NeuronsCount]; // матрица весов
-        double[,] _offsetsMtx = new double[InputsCount, NeuronsCount]; // поправки к матрице весов
+        double[,] _weightsMtx = new double[InputsCount, NeuronsCount];  // матрица весов
 
         // буква А
         double[,] _letterA = new double[,]
@@ -67,13 +66,13 @@ namespace neuro_01_main
 
         double[,] ChoosenLetter => (_chooseLetterComboBox.SelectedIndex == 0) ? _letterA : _letterB;
 
-        double[,] _targetsMtx = new double[,]
+        double[][] _targets = new double[][]
         {
-            { 1, 0, 0 },
-            { 0, 1, 0 }
+            new double[] { 1, 0, 0 },
+            new double[] { 0, 1, 0 }
         };
 
-        // буква дефектная
+        // новая буква
         double[,] _newLetter = new double[RowsCount, ColumnsCount];
 
         public Form1()
@@ -113,25 +112,25 @@ namespace neuro_01_main
             //  параметры таблицы для обучающих примеров
             _chooseLetterComboBox.SelectedIndex = 0;
 
-            for (int i = 0; i < ColumnsCount; i++)
+            for (int col = 0; col < ColumnsCount; col++)
             {
-                string cHeader = String.Format("c{0}", i);
-                string hcHeader = String.Format("Hc{0}", i);
+                string cHeader = String.Format("c{0}", col);
+                string hcHeader = String.Format("Hc{0}", col);
 
                 _letterAGridView.Columns.Add(cHeader, hcHeader);
                 _letterBGridView.Columns.Add(cHeader, hcHeader);
                 _newLetterGridView.Columns.Add(cHeader, hcHeader);
 
-                _letterAGridView.Columns[i].Width = 30;
-                _letterBGridView.Columns[i].Width = 30;
-                _newLetterGridView.Columns[i].Width = 30;
+                _letterAGridView.Columns[col].Width = 30;
+                _letterBGridView.Columns[col].Width = 30;
+                _newLetterGridView.Columns[col].Width = 30;
             }
 
             _letterAGridView.Rows.Add(RowsCount - 1);
             _letterBGridView.Rows.Add(RowsCount - 1);
             _newLetterGridView.Rows.Add(RowsCount - 1);
         }
-
+    
         private void OnLearnButtonClicked(object sender, EventArgs e)
         {
             // обучение 
@@ -146,17 +145,12 @@ namespace neuro_01_main
                 }
             }
 
-            // матрица весов
-            double eta = 1.0;
-            for (int inputIndex = 0; inputIndex < InputsCount; inputIndex++)
-            {
-                for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
-                {
-                    _weightsMtx[inputIndex, neuronIndex] = Math.Pow(-1.0, (inputIndex + neuronIndex));
-                    _offsetsMtx[inputIndex, neuronIndex] = 0;
-                }
-            }
+            // матрица весов            
+            _weightsMtx = MathUtil.InitialWeights(InputsCount, NeuronsCount);
 
+            // поправки к матрице весов
+            double[,] offsetsMtx = new double[InputsCount, NeuronsCount];
+            
             int iterationsCount = 10;
             int Flag = 0;
             for (int iterationNum = 0; iterationNum < iterationsCount; iterationNum++)
@@ -179,6 +173,7 @@ namespace neuro_01_main
 
                 // Image
                 // optimization w
+                const double eta = 1.0;
                 for (int inputIndex = 0; inputIndex < InputsCount; inputIndex++)
                 {
                     for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
@@ -186,25 +181,19 @@ namespace neuro_01_main
                         double dEw = 0;
                         for (int sampleIndex = 0; sampleIndex < SamplesCount; sampleIndex++)
                         { // Image
-                            dEw += (_outputsMtx[neuronIndex, sampleIndex] - _targetsMtx[sampleIndex, neuronIndex]) * (1 - _outputsMtx[neuronIndex, sampleIndex]) * _outputsMtx[neuronIndex, sampleIndex] * _inputsMtx[inputIndex, sampleIndex];
+                            dEw += (_outputsMtx[neuronIndex, sampleIndex] - _targets[sampleIndex][neuronIndex]) * (1 - _outputsMtx[neuronIndex, sampleIndex]) * _outputsMtx[neuronIndex, sampleIndex] * _inputsMtx[inputIndex, sampleIndex];
                         } // Image
                         double tol = Epsilon * Math.Abs(dEw) + Epsilon;
-                        double error = Math.Abs(-dEw - _offsetsMtx[inputIndex, neuronIndex] / eta);
+                        double error = Math.Abs(-dEw - offsetsMtx[inputIndex, neuronIndex] / eta);
                         if (error > tol)
                         {
                             Flag = 1;
                         }
-                        _offsetsMtx[inputIndex, neuronIndex] = -eta * dEw;                       
+                        offsetsMtx[inputIndex, neuronIndex] = -eta * dEw;                       
                     }
                 }
-                
-                for (int inputIndex = 0; inputIndex < InputsCount; inputIndex++)
-                {
-                    for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
-                    {
-                        _weightsMtx[inputIndex, neuronIndex] = _weightsMtx[inputIndex, neuronIndex] + _offsetsMtx[inputIndex, neuronIndex];
-                    }
-                }
+
+                _weightsMtx = MathUtil.Plus(_weightsMtx, offsetsMtx);
 
                 if (Flag == 0)
                 {
@@ -214,7 +203,6 @@ namespace neuro_01_main
             }
 
             MessageBox.Show(String.Format(" Education OK; Flag={0}", Flag));
-
         }
 
         private void OnGenerateButtonClicked(object sender, EventArgs e)
@@ -260,12 +248,11 @@ namespace neuro_01_main
                     xf[inputIndex] = _newLetter[row, col];
                     inputIndex++;
                 }
-            }
-
-            string str = "";
+            }            
 
             // y - выходящий сигнал
             double[] yf = new double[NeuronsCount];
+            string outputsStr = "";
             for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
             {
                 double sum = 0;
@@ -274,21 +261,17 @@ namespace neuro_01_main
                     sum += xf[inputIndex] * _weightsMtx[inputIndex, neuronIndex];
                 }
                 yf[neuronIndex] = ActivationFunction.Sigmoid(sum);
-                str += String.Format("{0:f4}  ", yf[neuronIndex]);
+                outputsStr += String.Format("{0:f4}  ", yf[neuronIndex]);
             }
 
-            _netOutputsTextBox.Text = str;
-            string resultLetter = "неизвестная буква";
-            if ((yf[0] >= 0.5) && (yf[1] < 0.5) && (yf[2] < 0.5))
-            {
-                resultLetter = "А";
-            }
-            else if ((yf[0] < 0.5) && (yf[1] >= 0.5) && (yf[2] < 0.5))
-            {
-                resultLetter = "Б";
-            }
+            _netOutputsTextBox.Text = outputsStr;
 
-            _resultLetterTextBox.Text = resultLetter;
+            if (MathUtil.IsAbout(yf, _targets[0], 0.5))
+                _resultLetterTextBox.Text = "А";
+            else if (MathUtil.IsAbout(yf, _targets[1], 0.5))
+                _resultLetterTextBox.Text = "B";
+            else
+                _resultLetterTextBox.Text = "неизвестная буква";
         }
 
     }
