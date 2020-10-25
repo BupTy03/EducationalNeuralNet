@@ -74,7 +74,7 @@ namespace neuro_01_main
                 }
             }
             //  здесь задаем обучающие примеры: буквы А и Б            
-            for (int i = 0; i <= 9; i++) // 
+            for (int i = 0; i <= 9; i++)
             {
                 for (int j = 0; j <= 6; j++)
                 {
@@ -83,12 +83,12 @@ namespace neuro_01_main
                 }
             }
             //  буква А    
-            for (int i = 0; i <= 9; i++) // 
+            for (int i = 0; i <= 9; i++)
             {
                 this.dataGridView1.Rows[i].Cells[5].Value = Convert.ToString(1);
                 this.dataGridView1.Rows[i].Cells[6].Value = Convert.ToString(1);
             }
-            for (int j = 1; j <= 6; j++) // 
+            for (int j = 1; j <= 6; j++)
             {
                 this.dataGridView1.Rows[7].Cells[j].Value = Convert.ToString(1);
                 this.dataGridView1.Rows[8].Cells[j].Value = Convert.ToString(1);
@@ -106,19 +106,19 @@ namespace neuro_01_main
             this.dataGridView1.Rows[9].Cells[0].Value = Convert.ToString(1);
             this.dataGridView1.Rows[9].Cells[1].Value = Convert.ToString(1);
             //  буква Б    
-            for (int i = 0; i <= 9; i++) // 
+            for (int i = 0; i <= 9; i++)
             {
                 this.dataGridView2.Rows[i].Cells[0].Value = Convert.ToString(1);
                 this.dataGridView2.Rows[i].Cells[1].Value = Convert.ToString(1);
             }
-            for (int j = 0; j <= 6; j++) // 
+            for (int j = 0; j <= 6; j++)
             {
                 this.dataGridView2.Rows[0].Cells[j].Value = Convert.ToString(1);
                 this.dataGridView2.Rows[1].Cells[j].Value = Convert.ToString(1);
                 this.dataGridView2.Rows[5].Cells[j].Value = Convert.ToString(1);
                 this.dataGridView2.Rows[8].Cells[j].Value = Convert.ToString(1);
             }
-            for (int j = 0; j <= 5; j++) // 
+            for (int j = 0; j <= 5; j++)
             {
                 this.dataGridView2.Rows[4].Cells[j].Value = Convert.ToString(1);
                 this.dataGridView2.Rows[9].Cells[j].Value = Convert.ToString(1);
@@ -127,8 +127,8 @@ namespace neuro_01_main
             this.dataGridView2.Rows[6].Cells[6].Value = Convert.ToString(1);
             this.dataGridView2.Rows[7].Cells[5].Value = Convert.ToString(1);
             this.dataGridView2.Rows[7].Cells[6].Value = Convert.ToString(1);
-            //
-            for (int i = 0; i <= 9; i++) // 
+            
+            for (int i = 0; i <= 9; i++)
             {
                 for (int j = 0; j <= 6; j++)
                 {
@@ -146,56 +146,11 @@ namespace neuro_01_main
                     };
                 }
             }
-            //            string writePath = @"d:\Trading\Via SpecuLatio\SL_Instrum\" + TikerI[ii] + ".txt";
-            string writePath = @"neuro_01.txt";
-            System.IO.StreamWriter textFile = new System.IO.StreamWriter(writePath);
-            textFile.WriteLine(" А ");
-            for (int i = 1; i <= mr; i++)
-            {
-                textFile.WriteLine(" ");
-                for (int j = 1; j <= mc; j++)
-                {
-                    textFile.Write(Ad[i, j]);
-                    textFile.Write(" ");
-                }
-            }
-            textFile.WriteLine(" ");
-            textFile.WriteLine(" ");
-            textFile.Write(" dt:  ");
-            for (int j = 1; j <= nn; j++)
-            {
-                textFile.Write(dt[1, j]);
-                textFile.Write(" ");
-            }
-            textFile.WriteLine(" ");
-            textFile.WriteLine(" Б ");
-            for (int i = 1; i <= mr; i++)
-            {
-                textFile.WriteLine(" ");
-                for (int j = 1; j <= mc; j++)
-                {
-                    textFile.Write(Bd[i, j]);
-                    textFile.Write(" ");
-                }
-            }
-            textFile.WriteLine(" ");
-            textFile.WriteLine(" ");
-            textFile.Write(" dt:  ");
-            for (int j = 1; j <= nn; j++)
-            {
-                textFile.Write(dt[2, j]);
-                textFile.Write(" ");
-            }
-            textFile.WriteLine(" ");
-            textFile.Close();
-            //            MessageBox.Show(" OK ");
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //  параметры таблицы для обучающих примеров   
-
+            //  параметры таблицы для обучающих примеров
             comboBox1.SelectedIndex = 0;
 
             for (int i = 0; i <= 6; i++)
@@ -207,20 +162,19 @@ namespace neuro_01_main
                 this.dataGridView2.Columns[i].Width = 30;
                 this.dataGridView3.Columns[i].Width = 30;
             }
-            //
+
             for (int i = 0; i <= 9; i++) // Цикл добавления строк
             {
                 this.dataGridView1.Rows.Add(); // добавление строки 
                 this.dataGridView2.Rows.Add(); // добавление строки
                 this.dataGridView3.Rows.Add(); // добавление строки
-
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             // обучение 
-            //   задание входных сигналов
+            // задание входных сигналов
             int ix = 0;
             for (int i = 1; i <= mr; i++)
             {
@@ -231,19 +185,8 @@ namespace neuro_01_main
                     x[ix, 2] = Bd[i, j];
                 }
             }
-            string writePath = @"neuro_01_ed.txt";
-            System.IO.StreamWriter textFile = new System.IO.StreamWriter(writePath);
-            textFile.WriteLine(" ix=" + Convert.ToString(ix));
-            textFile.WriteLine(" А и Б ");
-            for (int i = 1; i <= mx; i++)
-            {
-                textFile.Write(x[i, 1]);
-                textFile.Write("  ");
-                textFile.Write(x[i, 2]);
-                textFile.WriteLine("");
-            }
 
-            //   матрица весов
+            // матрица весов
             float eta = 1;
             for (int i = 1; i <= mx; i++)
             {
@@ -253,32 +196,16 @@ namespace neuro_01_main
                     dw1[i, j] = 0;
                 }
             }
-            textFile.WriteLine(" W1 ");
-            for (int i = 1; i <= mx; i++)
-            {
-                textFile.WriteLine("");
-                for (int j = 1; j <= nn; j++)
-                {
-                    textFile.Write(w1[i, j]);
-                    textFile.Write("  ");
-                }
-            }
 
-            //
+
             int iterm = 10;
             int Flag = 0;
-            textFile.WriteLine("  ");
-            textFile.WriteLine("  Education neuronet ");
             for (int iter = 1; iter <= iterm; iter++)
             {
                 Flag = 0;
-                textFile.WriteLine(" iter=" + Convert.ToString(iter));
                 // calc y
                 for (int it = 1; it <= tn; it++)
-                { // Image
-
-                    textFile.WriteLine(" it=" + Convert.ToString(it));
-                    textFile.WriteLine(" y:");
+                {
                     for (int j = 1; j <= nn; j++)
                     {
                         float s0 = 0;
@@ -286,15 +213,13 @@ namespace neuro_01_main
                         {
                             s0 = s0 + x[i, it] * w1[i, j];
                         }
+
                         y[j, it] = helpfun.press(s0);
-                        textFile.Write(y[j, it]);
-                        textFile.Write("  ");
                     }
-                    textFile.WriteLine("");
-                    textFile.WriteLine("");
-                } // Image
-                  // optimization w
-                  // 
+                }
+
+                // Image
+                // optimization w
                 for (int i = 1; i <= mx; i++)
                 {
                     for (int j = 1; j <= nn; j++)
@@ -310,35 +235,10 @@ namespace neuro_01_main
                         {
                             Flag = 1;
                         }
-                        dw1[i, j] = -eta * dEw;
-                        if (i == 35)
-                        {
-                            textFile.Write(" i= ");
-                            textFile.Write(i);
-                            textFile.Write("  ");
-                            textFile.Write(" j= ");
-                            textFile.Write(j);
-                            textFile.Write("  ");
-                            textFile.Write(" dw1= ");
-                            textFile.Write(dw1[i, j]);
-                            textFile.Write("  ");
-                            textFile.Write(" w1= ");
-                            textFile.Write(w1[i, j]);
-                            textFile.Write("  ");
-                            textFile.Write(" tol= ");
-                            textFile.Write(tol);
-                            textFile.Write("  ");
-                            textFile.Write(" error= ");
-                            textFile.Write(error);
-                            textFile.Write("  ");
-                            textFile.Write(" Flag= ");
-                            textFile.Write(Flag);
-                            textFile.Write("  ");
-                            textFile.WriteLine("");
-                        }
-                    } // j  cycle    
-                } // i cycle
-                  // correction w1
+                        dw1[i, j] = -eta * dEw;                       
+                    }
+                }
+                
                 for (int i = 1; i <= mx; i++)
                 {
                     for (int j = 1; j <= nn; j++)
@@ -351,16 +251,8 @@ namespace neuro_01_main
                     iterm = iter;
                     break;
                 }
-            } // iter
+            }
 
-            textFile.WriteLine(" ");
-            textFile.Write(" iter= ");
-            textFile.Write(iterm);
-            textFile.Write("  ");
-            textFile.Write(" Flag= ");
-            textFile.Write(Flag);
-            textFile.WriteLine("");
-            textFile.Close();
             MessageBox.Show(" Education OK; Flag=" + Convert.ToString(Flag));
 
         }
@@ -369,10 +261,10 @@ namespace neuro_01_main
         {
             textBox5.Text = "";
             textBox4.Text = "";
+
             // Распознование нечетко написанных букв
-            //
             float rr = 0;
-            for (int i = 0; i <= 9; i++) // 
+            for (int i = 0; i <= 9; i++)
             {
                 for (int j = 0; j <= 6; j++)
                 {
@@ -401,7 +293,7 @@ namespace neuro_01_main
         {
             textBox5.Text = "";
             textBox4.Text = "";
-            for (int i = 0; i <= 9; i++) // 
+            for (int i = 0; i <= 9; i++)
             {
                 for (int j = 0; j <= 6; j++)
                 {
