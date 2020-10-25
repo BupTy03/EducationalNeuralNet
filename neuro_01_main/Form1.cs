@@ -22,11 +22,6 @@ namespace neuro_01_main
         }
 
         // однослойная нейронная сеть
-        const int MaxInputsCount = 100; // максимальное количество входных сигналов
-        const int MaxNeuronsCount = 10; // максимальное количество нейронов
-        const int MaxSamplesCount = 10; // максимальное количество обучающих примеров
-        const int MaxRowsCount = 15; // число строк матрицы образа буквы
-        const int MaxColumnsCount = 10; // число столбцов матрицы образа буквы
         const int RowsCount = 10;
         const int ColumnsCount = 7;
         const double Epsilon = 0.001f; // точность для w1
@@ -35,12 +30,13 @@ namespace neuro_01_main
         const int NeuronsCount = 3; // количество нейронов по факту
         const int SamplesCount = 2; // количество обучающих примеров по факту
 
-        double[,] _inputsMtx = new double[MaxInputsCount, MaxSamplesCount]; // входящие сигналы
-        double[,] _outputsMtx = new double[MaxNeuronsCount, MaxSamplesCount]; // выходящие сигналы
-        double[,] _weightsMtx = new double[MaxInputsCount, MaxNeuronsCount]; // матрица весов
-        double[,] _offsetsMtx = new double[MaxInputsCount, MaxNeuronsCount]; // поправки к матрице весов
+        double[,] _inputsMtx = new double[InputsCount, SamplesCount]; // входящие сигналы
+        double[,] _outputsMtx = new double[NeuronsCount, SamplesCount]; // выходящие сигналы
+        double[,] _weightsMtx = new double[InputsCount, NeuronsCount]; // матрица весов
+        double[,] _offsetsMtx = new double[InputsCount, NeuronsCount]; // поправки к матрице весов
 
-        double[,] _letterA = new double[,] // буква А
+        // буква А
+        double[,] _letterA = new double[,]
         {
             { 0, 0, 0, 0, 0, 1, 1 },
             { 0, 0, 0, 0, 1, 1, 1 },
@@ -54,7 +50,8 @@ namespace neuro_01_main
             { 1, 1, 0, 0, 0, 1, 1 }
         };
 
-        double[,] _letterB = new double[,] // буква Б
+        // буква Б
+        double[,] _letterB = new double[,]
         {
             { 1, 1, 1, 1, 1, 1, 1 },
             { 1, 1, 1, 1, 1, 1, 1 },
@@ -68,16 +65,16 @@ namespace neuro_01_main
             { 1, 1, 1, 1, 1, 1, 0 }
         };
 
+        double[,] ChoosenLetter => (_chooseLetterComboBox.SelectedIndex == 0) ? _letterA : _letterB;
+
         double[,] _targetsMtx = new double[,]
         {
             { 1, 0, 0 },
             { 0, 1, 0 }
         };
 
-        double[,] _newLetter = new double[MaxRowsCount, MaxColumnsCount]; // буква дефектная
-
-        double[] xf = new double[MaxInputsCount]; // входящий сигнал
-        double[] yf = new double[MaxNeuronsCount]; // выходящий сигнал
+        // буква дефектная
+        double[,] _newLetter = new double[RowsCount, ColumnsCount];
 
         public Form1()
         {
@@ -142,10 +139,10 @@ namespace neuro_01_main
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
-                {                   
-                    inputIndex++;
+                {                                       
                     _inputsMtx[inputIndex, 0] = _letterA[row, col];
                     _inputsMtx[inputIndex, 1] = _letterB[row, col];
+                    inputIndex++;
                 }
             }
 
@@ -225,30 +222,11 @@ namespace neuro_01_main
             _netOutputsTextBox.Text = "";
             _resultLetterTextBox.Text = "";
 
-            // Распознование нечетко написанных букв
-            double rr = 0.0;
             for (int row = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
                 {
-                    _newLetter[row, col] = 0;
-                    if (_chooseLetterComboBox.SelectedIndex == 0)
-                    {
-                        rr = _letterA[row, col];
-                    }
-                    else if (_chooseLetterComboBox.SelectedIndex == 1)
-                    {
-                        rr = _letterB[row, col];
-                    }
-
-                    if (rr == 1)
-                    {
-                        _newLetterGridView.Rows[row].Cells[col].Value = Convert.ToString(rr);
-                    }
-                    else
-                    {
-                        _newLetterGridView.Rows[row].Cells[col].Value = Convert.ToString(" ");
-                    }
+                    _newLetterGridView.Rows[row].Cells[col].Value = ChoosenLetter[row, col] == 1 ? "1" : "";                    
                 }
             }
         }
@@ -273,17 +251,21 @@ namespace neuro_01_main
             _netOutputsTextBox.Text = "";
             _resultLetterTextBox.Text = "";
 
+            // входящий сигнал
+            double[] xf = new double[InputsCount];
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
-                {
-                    inputIndex++;
+                {                    
                     xf[inputIndex] = _newLetter[row, col];
+                    inputIndex++;
                 }
             }
 
             string str = "";
-            // calc y
+
+            // y - выходящий сигнал
+            double[] yf = new double[NeuronsCount];
             for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
             {
                 double sum = 0;
@@ -297,11 +279,11 @@ namespace neuro_01_main
 
             _netOutputsTextBox.Text = str;
             string resultLetter = "неизвестная буква";
-            if ((yf[0] >= 0.8) && (yf[1] <= 0.2) && (yf[2] <= 0.2))
+            if ((yf[0] >= 0.5) && (yf[1] < 0.5) && (yf[2] < 0.5))
             {
                 resultLetter = "А";
             }
-            else if ((yf[0] <= 0.2) && (yf[1] >= 0.8) && (yf[2] <= 0.2))
+            else if ((yf[0] < 0.5) && (yf[1] >= 0.5) && (yf[2] < 0.5))
             {
                 resultLetter = "Б";
             }
