@@ -54,5 +54,101 @@ namespace neuro_01_main
 
             return true;
         }
+
+        public static double[,] Transform(double[,] mtx)
+        {
+            int rowsCount = mtx.GetLength(0);
+            int colsCount = mtx.GetLength(1);
+
+            double[,] result = new double[colsCount, rowsCount];
+            for (int row = 0; row < rowsCount; ++row)
+            {
+                for (int col = 0; col < colsCount; ++col)
+                {
+                    result[col, row] = mtx[row, col];
+                }
+            }
+
+            return result;
+        }
+
+        public static double[,] Multiply(double[,] a, double[,] b)
+        {
+            Debug.Assert(a.GetLength(1) == b.GetLength(0));
+
+            int countRows = a.GetLength(0);
+            int countColumns = b.GetLength(1);
+            int commonDim = a.GetLength(1);
+
+            double[,] result = new double[countRows, countColumns];
+            for (int row = 0; row < countRows; row++)
+            {
+                for (int col = 0; col < countColumns; col++)
+                {
+                    double sum = 0.0;
+                    for (int k = 0; k < commonDim; ++k)
+                    {
+                        sum += a[row, k] * b[k, col];
+                    }
+                    result[row, col] = sum;
+                }
+            }
+
+            return result;
+        }
+
+        public static void Print(double[,] mtx)
+        {
+            int countRows = mtx.GetLength(0);
+            int countColumns = mtx.GetLength(1);
+            for (int row = 0; row < countRows; ++row)
+            {
+                Console.Write('[');
+                for (int col = 0; col < countColumns; ++col)
+                {
+                    Console.Write(" {0}", mtx[row, col]);
+                }
+                Console.WriteLine(" ]");
+            }
+
+            Console.WriteLine();
+        }
+
+        public class ActivationFunction
+        {
+            public static double Sigmoid(double x)
+            {
+                return 1.0 / (1.0 + Math.Exp(-x));
+            }
+        }
+
+        public static double[,] Apply(double[,] mtx, Func<double, double> func)
+        {
+            int rowsCount = mtx.GetLength(0);
+            int columnsCount = mtx.GetLength(1);
+
+            double[,] result = new double[rowsCount, columnsCount];
+            for (int row = 0; row < rowsCount; ++row)
+            {
+                for (int col = 0; col < columnsCount; ++col)
+                {
+                    result[row, col] = func(mtx[row, col]);
+                }
+            }
+
+            return result;
+        }
+
+        public static string Stringify(double[] arr)
+        {
+            string result = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                result += String.Format("{0:f4}  ", arr[i]);
+            }
+
+            return result;
+        }
+
     }
 }

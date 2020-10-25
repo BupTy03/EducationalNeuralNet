@@ -13,14 +13,6 @@ namespace neuro_01_main
 {
     public partial class Form1 : Form
     {
-        public class ActivationFunction
-        {
-            public static double Sigmoid(double x)
-            {
-                return 1.0 / (1.0 + Math.Exp(-x));
-            }
-        }
-
         // однослойная нейронная сеть
         const int RowsCount = 10;
         const int ColumnsCount = 7;
@@ -156,20 +148,10 @@ namespace neuro_01_main
             for (int iterationNum = 0; iterationNum < iterationsCount; iterationNum++)
             {
                 Flag = 0;
-                // calc y
-                for (int sampleIndex = 0; sampleIndex < SamplesCount; sampleIndex++)
-                {
-                    for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
-                    {
-                        double sum = 0.0;
-                        for (int inputIndex = 0; inputIndex < InputsCount; inputIndex++)
-                        {
-                            sum += _inputsMtx[inputIndex, sampleIndex] * _weightsMtx[inputIndex, neuronIndex];
-                        }
 
-                        _outputsMtx[neuronIndex, sampleIndex] = ActivationFunction.Sigmoid(sum);
-                    }
-                }
+                // calc outputs
+                _outputsMtx = MathUtil.Multiply(MathUtil.Transform(_weightsMtx), _inputsMtx);
+                _outputsMtx = MathUtil.Apply(_outputsMtx, MathUtil.ActivationFunction.Sigmoid);
 
                 // Image
                 // optimization w
@@ -189,7 +171,7 @@ namespace neuro_01_main
                         {
                             Flag = 1;
                         }
-                        offsetsMtx[inputIndex, neuronIndex] = -eta * dEw;                       
+                        offsetsMtx[inputIndex, neuronIndex] = -eta * dEw;
                     }
                 }
 
@@ -239,40 +221,31 @@ namespace neuro_01_main
             _netOutputsTextBox.Text = "";
             _resultLetterTextBox.Text = "";
 
-            // входящий сигнал
-            double[] xf = new double[InputsCount];
+            // x - входящий сигнал
+            double[,] xf = new double[InputsCount, 1];
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
                 {                    
-                    xf[inputIndex] = _newLetter[row, col];
+                    xf[inputIndex, 0] = _newLetter[row, col];
                     inputIndex++;
                 }
-            }            
-
-            // y - выходящий сигнал
-            double[] yf = new double[NeuronsCount];
-            string outputsStr = "";
-            for (int neuronIndex = 0; neuronIndex < NeuronsCount; neuronIndex++)
-            {
-                double sum = 0;
-                for (int inputIndex = 0; inputIndex < InputsCount; inputIndex++)
-                {
-                    sum += xf[inputIndex] * _weightsMtx[inputIndex, neuronIndex];
-                }
-                yf[neuronIndex] = ActivationFunction.Sigmoid(sum);
-                outputsStr += String.Format("{0:f4}  ", yf[neuronIndex]);
             }
 
-            _netOutputsTextBox.Text = outputsStr;
+            // y - выходящий сигнал
+            double[,] yf = MathUtil.Apply(MathUtil.Multiply(MathUtil.Transform(_weightsMtx), xf), MathUtil.ActivationFunction.Sigmoid);
+            double[] outputs = new double[yf.GetLength(0)];
+            for (int i = 0; i < outputs.Length; ++i)
+                outputs[i] = yf[i, 0];
 
-            if (MathUtil.IsAbout(yf, _targets[0], 0.5))
+            _netOutputsTextBox.Text = MathUtil.Stringify(outputs);
+
+            if (MathUtil.IsAbout(outputs, _targets[0], 0.5))
                 _resultLetterTextBox.Text = "А";
-            else if (MathUtil.IsAbout(yf, _targets[1], 0.5))
+            else if (MathUtil.IsAbout(outputs, _targets[1], 0.5))
                 _resultLetterTextBox.Text = "B";
             else
                 _resultLetterTextBox.Text = "неизвестная буква";
         }
-
     }
 }
