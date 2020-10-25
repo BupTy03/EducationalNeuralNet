@@ -30,27 +30,27 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this._countInputsTextBox = new System.Windows.Forms.TextBox();
+            this._countNeuronsTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this._letterAGridView = new System.Windows.Forms.DataGridView();
+            this._letterBGridView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this._countSamplesTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this._newLetterGridView = new System.Windows.Forms.DataGridView();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this._resultLetterTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this._chooseLetterComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this._netOutputsTextBox = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this._letterAGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._letterBGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._newLetterGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -71,21 +71,21 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Число НЕЙРОНОВ";
             // 
-            // textBox1
+            // _countInputsTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(164, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(41, 20);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "10";
+            this._countInputsTextBox.Location = new System.Drawing.Point(164, 20);
+            this._countInputsTextBox.Name = "_countInputsTextBox";
+            this._countInputsTextBox.Size = new System.Drawing.Size(41, 20);
+            this._countInputsTextBox.TabIndex = 4;
+            this._countInputsTextBox.Text = "10";
             // 
-            // textBox2
+            // _countNeuronsTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(164, 49);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(39, 20);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.Text = "3";
+            this._countNeuronsTextBox.Location = new System.Drawing.Point(164, 49);
+            this._countNeuronsTextBox.Name = "_countNeuronsTextBox";
+            this._countNeuronsTextBox.Size = new System.Drawing.Size(39, 20);
+            this._countNeuronsTextBox.TabIndex = 5;
+            this._countNeuronsTextBox.Text = "3";
             // 
             // label4
             // 
@@ -96,23 +96,23 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Обучающие примеры";
             // 
-            // dataGridView1
+            // _letterAGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 151);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 20;
-            this.dataGridView1.Size = new System.Drawing.Size(258, 260);
-            this.dataGridView1.TabIndex = 7;
+            this._letterAGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._letterAGridView.Location = new System.Drawing.Point(12, 151);
+            this._letterAGridView.Name = "_letterAGridView";
+            this._letterAGridView.RowHeadersWidth = 20;
+            this._letterAGridView.Size = new System.Drawing.Size(258, 260);
+            this._letterAGridView.TabIndex = 7;
             // 
-            // dataGridView2
+            // _letterBGridView
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(285, 151);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 20;
-            this.dataGridView2.Size = new System.Drawing.Size(254, 260);
-            this.dataGridView2.TabIndex = 8;
+            this._letterBGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._letterBGridView.Location = new System.Drawing.Point(285, 151);
+            this._letterBGridView.Name = "_letterBGridView";
+            this._letterBGridView.RowHeadersWidth = 20;
+            this._letterBGridView.Size = new System.Drawing.Size(254, 260);
+            this._letterBGridView.TabIndex = 8;
             // 
             // button1
             // 
@@ -122,15 +122,15 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "1. Заполнить";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.OnFillButtonClicked);
             // 
-            // textBox3
+            // _countSamplesTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(166, 79);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(39, 20);
-            this.textBox3.TabIndex = 10;
-            this.textBox3.Text = "2";
+            this._countSamplesTextBox.Location = new System.Drawing.Point(166, 79);
+            this._countSamplesTextBox.Name = "_countSamplesTextBox";
+            this._countSamplesTextBox.Size = new System.Drawing.Size(39, 20);
+            this._countSamplesTextBox.TabIndex = 10;
+            this._countSamplesTextBox.Text = "2";
             // 
             // label1
             // 
@@ -149,15 +149,15 @@
             this.button2.TabIndex = 12;
             this.button2.Text = "2. ОБУЧЕНИЕ НЕЙРОСЕТИ";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.OnLearnButtonClicked);
             // 
-            // dataGridView3
+            // _newLetterGridView
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(564, 5);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(284, 255);
-            this.dataGridView3.TabIndex = 13;
+            this._newLetterGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._newLetterGridView.Location = new System.Drawing.Point(564, 5);
+            this._newLetterGridView.Name = "_newLetterGridView";
+            this._newLetterGridView.Size = new System.Drawing.Size(284, 255);
+            this._newLetterGridView.TabIndex = 13;
             // 
             // button3
             // 
@@ -167,14 +167,14 @@
             this.button3.TabIndex = 14;
             this.button3.Text = "3. Сформировать сигнал";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.OnGenerateButtonClicked);
             // 
-            // textBox4
+            // _resultLetterTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(734, 305);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(179, 20);
-            this.textBox4.TabIndex = 15;
+            this._resultLetterTextBox.Location = new System.Drawing.Point(734, 305);
+            this._resultLetterTextBox.Name = "_resultLetterTextBox";
+            this._resultLetterTextBox.Size = new System.Drawing.Size(179, 20);
+            this._resultLetterTextBox.TabIndex = 15;
             // 
             // label5
             // 
@@ -193,7 +193,7 @@
             this.button4.TabIndex = 18;
             this.button4.Text = "4. Сохранить изменения";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.OnSaveButtonClicked);
             // 
             // button5
             // 
@@ -203,18 +203,18 @@
             this.button5.TabIndex = 19;
             this.button5.Text = "5. Распознование";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.OnRecognitionButtonClicked);
             // 
-            // comboBox1
+            // _chooseLetterComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this._chooseLetterComboBox.FormattingEnabled = true;
+            this._chooseLetterComboBox.Items.AddRange(new object[] {
             "А",
             "Б"});
-            this.comboBox1.Location = new System.Drawing.Point(418, 71);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 20;
+            this._chooseLetterComboBox.Location = new System.Drawing.Point(418, 71);
+            this._chooseLetterComboBox.Name = "_chooseLetterComboBox";
+            this._chooseLetterComboBox.Size = new System.Drawing.Size(121, 21);
+            this._chooseLetterComboBox.TabIndex = 20;
             // 
             // label6
             // 
@@ -225,44 +225,44 @@
             this.label6.TabIndex = 21;
             this.label6.Text = "Выходы нейронов";
             // 
-            // textBox5
+            // _netOutputsTextBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(734, 336);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(179, 20);
-            this.textBox5.TabIndex = 22;
+            this._netOutputsTextBox.Location = new System.Drawing.Point(734, 336);
+            this._netOutputsTextBox.Name = "_netOutputsTextBox";
+            this._netOutputsTextBox.Size = new System.Drawing.Size(179, 20);
+            this._netOutputsTextBox.TabIndex = 22;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(925, 423);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this._netOutputsTextBox);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this._chooseLetterComboBox);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this._resultLetterTextBox);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.dataGridView3);
+            this.Controls.Add(this._newLetterGridView);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this._countSamplesTextBox);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this._letterBGridView);
+            this.Controls.Add(this._letterAGridView);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this._countNeuronsTextBox);
+            this.Controls.Add(this._countInputsTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Name = "Form1";
             this.Text = "Однослойная нейронная сеть - учебный пример";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.Load += new System.EventHandler(this.OnFormLoad);
+            ((System.ComponentModel.ISupportInitialize)(this._letterAGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._letterBGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._newLetterGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,24 +272,24 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox _countInputsTextBox;
+        private System.Windows.Forms.TextBox _countNeuronsTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView _letterAGridView;
+        private System.Windows.Forms.DataGridView _letterBGridView;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox _countSamplesTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView _newLetterGridView;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox _resultLetterTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox _chooseLetterComboBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox _netOutputsTextBox;
 
     }
 }
