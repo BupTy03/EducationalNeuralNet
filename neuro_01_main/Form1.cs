@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+
 
 namespace neuro_01_main
 {
     public partial class Form1 : Form
     {   
         private const double Epsilon = 0.001f;
-        private const int NeuronsCount = 3;
+        private const int NeuronsCount = 5;
 
         double[][,] _samples = new double[][,]
         {
@@ -40,7 +34,7 @@ namespace neuro_01_main
                 { 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
                 { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
                 { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-                { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
             }
         };                
         string[] _sampleNames = new string[] { "Chevrolet", "Lexus" };
@@ -115,14 +109,15 @@ namespace neuro_01_main
 
             _chooseLetterComboBox.Items.AddRange(_sampleNames);
             _chooseLetterComboBox.SelectedIndex = 0;
+
+            _countNeuronsTextBox.Text = Convert.ToString(NeuronsCount);
+            _countInputsTextBox.Text = Convert.ToString(InputsCount);
+            _countSamplesTextBox.Text = Convert.ToString(SamplesCount);
         }
     
         private void OnLearnButtonClicked(object sender, EventArgs e)
         {
-            // обучение 
             // задание входных сигналов
-
-            // входящие сигналы
             double[,] inputsMtx = new double[InputsCount, SamplesCount];
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
@@ -161,9 +156,9 @@ namespace neuro_01_main
                     {
                         double dEw = 0;
                         for (int sampleIndex = 0; sampleIndex < SamplesCount; sampleIndex++)
-                        { // Image
+                        {
                             dEw += (outputsMtx[neuronIndex, sampleIndex] - _targets[sampleIndex][neuronIndex]) * (1 - outputsMtx[neuronIndex, sampleIndex]) * outputsMtx[neuronIndex, sampleIndex] * inputsMtx[inputIndex, sampleIndex];
-                        } // Image
+                        }
                         double tol = Epsilon * Math.Abs(dEw) + Epsilon;
                         double error = Math.Abs(-dEw - offsetsMtx[inputIndex, neuronIndex] / eta);
                         if (error > tol)
