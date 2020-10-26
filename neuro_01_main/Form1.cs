@@ -226,7 +226,10 @@ namespace neuro_01_main
             for (int sampleIndex = 0; sampleIndex < _samples.Length; ++sampleIndex)
             {
                 if (MathUtil.IsAbout(outputs, _targets[sampleIndex], accuracy))
+                {
                     _resultLetterTextBox.Text = _sampleNames[sampleIndex];
+                    break;
+                }
             }                
         }
     }
