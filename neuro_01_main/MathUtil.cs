@@ -150,5 +150,54 @@ namespace neuro_01_main
             return result;
         }
 
+        public static double[] VectorToArray(double[,] mtx)
+        {
+            int rowsCount = mtx.GetLength(0);
+            int columnsCount = mtx.GetLength(1);
+
+            Debug.Assert(columnsCount == 1);
+
+            double[] result = new double[rowsCount];
+            for (int row = 0; row < rowsCount; ++row)
+            {
+                result[row] = mtx[row, 0];
+            }
+
+            return result;
+        }
+
+        public static double[,] Vectorize(double[,] mtx)
+        {
+            int rowsCount = mtx.GetLength(0);
+            int columnsCount = mtx.GetLength(1);
+
+            double[,] vec = new double[rowsCount * columnsCount, 1];
+            int index = 0;
+            for(int row = 0; row < rowsCount; ++row)
+            {
+                for(int col = 0; col < columnsCount; ++col)
+                {
+                    vec[index, 0] = mtx[row, col];
+                    index++;
+                }
+            }
+
+            return vec;
+        }
+
+        public static double[][] IdentityMatrix(int rowsCount, int columnsCount)
+        {
+            double[][] result = new double[rowsCount][];
+            for(int row = 0; row < rowsCount; ++row)
+            {
+                result[row] = new double[columnsCount];
+                for(int col = 0; col < columnsCount; ++col)
+                {
+                    result[row][col] = (row == col) ? 1 : 0;
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -102,16 +102,16 @@
             this._letterAGridView.Location = new System.Drawing.Point(12, 151);
             this._letterAGridView.Name = "_letterAGridView";
             this._letterAGridView.RowHeadersWidth = 20;
-            this._letterAGridView.Size = new System.Drawing.Size(258, 260);
+            this._letterAGridView.Size = new System.Drawing.Size(304, 260);
             this._letterAGridView.TabIndex = 7;
             // 
             // _letterBGridView
             // 
             this._letterBGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._letterBGridView.Location = new System.Drawing.Point(285, 151);
+            this._letterBGridView.Location = new System.Drawing.Point(322, 151);
             this._letterBGridView.Name = "_letterBGridView";
             this._letterBGridView.RowHeadersWidth = 20;
-            this._letterBGridView.Size = new System.Drawing.Size(254, 260);
+            this._letterBGridView.Size = new System.Drawing.Size(300, 260);
             this._letterBGridView.TabIndex = 8;
             // 
             // button1
@@ -154,9 +154,9 @@
             // _newLetterGridView
             // 
             this._newLetterGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._newLetterGridView.Location = new System.Drawing.Point(564, 5);
+            this._newLetterGridView.Location = new System.Drawing.Point(628, 12);
             this._newLetterGridView.Name = "_newLetterGridView";
-            this._newLetterGridView.Size = new System.Drawing.Size(284, 255);
+            this._newLetterGridView.Size = new System.Drawing.Size(477, 255);
             this._newLetterGridView.TabIndex = 13;
             // 
             // button3
@@ -171,7 +171,7 @@
             // 
             // _resultLetterTextBox
             // 
-            this._resultLetterTextBox.Location = new System.Drawing.Point(734, 305);
+            this._resultLetterTextBox.Location = new System.Drawing.Point(798, 312);
             this._resultLetterTextBox.Name = "_resultLetterTextBox";
             this._resultLetterTextBox.Size = new System.Drawing.Size(179, 20);
             this._resultLetterTextBox.TabIndex = 15;
@@ -179,7 +179,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(565, 305);
+            this.label5.Location = new System.Drawing.Point(629, 312);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(140, 13);
             this.label5.TabIndex = 16;
@@ -197,7 +197,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(568, 266);
+            this.button5.Location = new System.Drawing.Point(632, 273);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(149, 23);
             this.button5.TabIndex = 19;
@@ -208,9 +208,6 @@
             // _chooseLetterComboBox
             // 
             this._chooseLetterComboBox.FormattingEnabled = true;
-            this._chooseLetterComboBox.Items.AddRange(new object[] {
-            "А",
-            "Б"});
             this._chooseLetterComboBox.Location = new System.Drawing.Point(418, 71);
             this._chooseLetterComboBox.Name = "_chooseLetterComboBox";
             this._chooseLetterComboBox.Size = new System.Drawing.Size(121, 21);
@@ -219,7 +216,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(607, 339);
+            this.label6.Location = new System.Drawing.Point(671, 346);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 13);
             this.label6.TabIndex = 21;
@@ -227,7 +224,7 @@
             // 
             // _netOutputsTextBox
             // 
-            this._netOutputsTextBox.Location = new System.Drawing.Point(734, 336);
+            this._netOutputsTextBox.Location = new System.Drawing.Point(798, 343);
             this._netOutputsTextBox.Name = "_netOutputsTextBox";
             this._netOutputsTextBox.Size = new System.Drawing.Size(179, 20);
             this._netOutputsTextBox.TabIndex = 22;
@@ -236,7 +233,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 423);
+            this.ClientSize = new System.Drawing.Size(1114, 426);
             this.Controls.Add(this._netOutputsTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this._chooseLetterComboBox);

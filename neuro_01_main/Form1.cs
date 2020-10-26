@@ -12,64 +12,57 @@ using System.Diagnostics;
 namespace neuro_01_main
 {
     public partial class Form1 : Form
-    {
-        // однослойная нейронная сеть
-        private const int RowsCount = 10;
-        private const int ColumnsCount = 7;
-        private const double Epsilon = 0.001f; // точность для w1
+    {   
+        private const double Epsilon = 0.001f;
+        private const int NeuronsCount = 3;
 
-        private const int InputsCount = RowsCount * ColumnsCount; // количество входных сигналов
-        private const int NeuronsCount = 3; // количество нейронов
-        private const int SamplesCount = 2; // количество обучающих примеров
-
-        private double[,] _weightsMtx = new double[InputsCount, NeuronsCount];  // матрица весов
-
-        private double[][] _targets = new double[][]
+        double[][,] _samples = new double[][,]
         {
-            new double[] { 1, 0, 0 },
-            new double[] { 0, 1, 0 }
-        };
+            new double[,]
+            {
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
+                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
+                { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            },
+            new double[,]
+            {
+                { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0 },
+                { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0 },
+                { 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+                { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+                { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
+            }
+        };                
+        string[] _sampleNames = new string[] { "Chevrolet", "Lexus" };
+        private double[,] _newSample;
 
-        // буква А
-        private double[,] _letterA = new double[,]
-        {
-            { 0, 0, 0, 0, 0, 1, 1 },
-            { 0, 0, 0, 0, 1, 1, 1 },
-            { 0, 0, 0, 0, 1, 1, 1 },
-            { 0, 0, 0, 1, 1, 1, 1 },
-            { 0, 0, 0, 1, 1, 1, 1 },
-            { 0, 0, 1, 1, 0, 1, 1 },
-            { 0, 0, 1, 1, 0, 1, 1 },
-            { 0, 1, 1, 1, 1, 1, 1 },
-            { 0, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 0, 0, 0, 1, 1 }
-        };
-
-        // буква Б
-        private double[,] _letterB = new double[,]
-        {
-            { 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 0, 0, 0, 0, 0 },
-            { 1, 1, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 0 },
-            { 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 0, 0, 0, 1, 1 },
-            { 1, 1, 0, 0, 0, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 0 }
-        };
-
-        // новая буква
-        private double[,] _newLetter = new double[RowsCount, ColumnsCount];
+        private double[][] _targets;
+        private double[,] _weightsMtx;
 
 
-        private double[,] ChoosenLetter => (_chooseLetterComboBox.SelectedIndex == 0) ? _letterA : _letterB;
-        
+        private int RowsCount => _samples[0].GetLength(0);
+        private int ColumnsCount => _samples[0].GetLength(1);
+        private int InputsCount => RowsCount * ColumnsCount;
+        private int SamplesCount => _samples.Length;
+        private double[,] ChoosenLetter => _samples[_chooseLetterComboBox.SelectedIndex];
+
 
         public Form1()
         {
             InitializeComponent();
+            _weightsMtx = new double[InputsCount, NeuronsCount];
+            _newSample = new double[RowsCount, ColumnsCount];
+            _targets = MathUtil.IdentityMatrix(SamplesCount, NeuronsCount);
         }
 
         private void FillGridViewWithMatrix(DataGridView gridView, double[,] mtx)
@@ -95,15 +88,13 @@ namespace neuro_01_main
             _countNeuronsTextBox.Text = Convert.ToString(NeuronsCount);
             _countSamplesTextBox.Text = Convert.ToString(SamplesCount);
 
-            FillGridViewWithMatrix(_letterAGridView, _letterA);
-            FillGridViewWithMatrix(_letterBGridView, _letterB);                                               
+            FillGridViewWithMatrix(_letterAGridView, _samples[0]);
+            FillGridViewWithMatrix(_letterBGridView, _samples[1]);                                            
         }
 
         private void OnFormLoad(object sender, EventArgs e)
-        {
-            //  параметры таблицы для обучающих примеров
-            _chooseLetterComboBox.SelectedIndex = 0;
-
+        {          
+            const int columnWidth = 30;
             for (int col = 0; col < ColumnsCount; col++)
             {
                 string cHeader = String.Format("c{0}", col);
@@ -113,14 +104,17 @@ namespace neuro_01_main
                 _letterBGridView.Columns.Add(cHeader, hcHeader);
                 _newLetterGridView.Columns.Add(cHeader, hcHeader);
 
-                _letterAGridView.Columns[col].Width = 30;
-                _letterBGridView.Columns[col].Width = 30;
-                _newLetterGridView.Columns[col].Width = 30;
+                _letterAGridView.Columns[col].Width = columnWidth;
+                _letterBGridView.Columns[col].Width = columnWidth;
+                _newLetterGridView.Columns[col].Width = columnWidth;
             }
 
             _letterAGridView.Rows.Add(RowsCount - 1);
             _letterBGridView.Rows.Add(RowsCount - 1);
             _newLetterGridView.Rows.Add(RowsCount - 1);
+
+            _chooseLetterComboBox.Items.AddRange(_sampleNames);
+            _chooseLetterComboBox.SelectedIndex = 0;
         }
     
         private void OnLearnButtonClicked(object sender, EventArgs e)
@@ -133,9 +127,11 @@ namespace neuro_01_main
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
-                {                                       
-                    inputsMtx[inputIndex, 0] = _letterA[row, col];
-                    inputsMtx[inputIndex, 1] = _letterB[row, col];
+                {                         
+                    for(int sampleIndex = 0; sampleIndex < _samples.Length; ++sampleIndex)
+                    {
+                        inputsMtx[inputIndex, sampleIndex] = _samples[sampleIndex][row, col];         
+                    }
                     inputIndex++;
                 }
             }
@@ -213,7 +209,7 @@ namespace neuro_01_main
                 for (int col = 0; col < ColumnsCount; col++)
                 {
                     string val = Convert.ToString(_newLetterGridView.Rows[row].Cells[col].Value);
-                    _newLetter[row, col] = (val == "1") ? 1 : 0;
+                    _newSample[row, col] = (val == "1") ? 1 : 0;
                 }
             }
 
@@ -224,31 +220,19 @@ namespace neuro_01_main
             _netOutputsTextBox.Text = "";
             _resultLetterTextBox.Text = "";
 
-            // x - входящий сигнал
-            double[,] xf = new double[InputsCount, 1];
-            for (int row = 0, inputIndex = 0; row < RowsCount; row++)
-            {
-                for (int col = 0; col < ColumnsCount; col++)
-                {                    
-                    xf[inputIndex, 0] = _newLetter[row, col];
-                    inputIndex++;
-                }
-            }
-
-            // y - выходящий сигнал
+            double[,] xf = MathUtil.Vectorize(_newSample);
             double[,] yf = MathUtil.Apply(MathUtil.Multiply(MathUtil.Transform(_weightsMtx), xf), MathUtil.ActivationFunction.Sigmoid);
-            double[] outputs = new double[yf.GetLength(0)];
-            for (int i = 0; i < outputs.Length; ++i)
-                outputs[i] = yf[i, 0];
 
+            double[] outputs = MathUtil.VectorToArray(yf);
             _netOutputsTextBox.Text = MathUtil.Stringify(outputs);
 
-            if (MathUtil.IsAbout(outputs, _targets[0], 0.5))
-                _resultLetterTextBox.Text = "А";
-            else if (MathUtil.IsAbout(outputs, _targets[1], 0.5))
-                _resultLetterTextBox.Text = "B";
-            else
-                _resultLetterTextBox.Text = "неизвестная буква";
+            const double accuracy = 0.5;
+            _resultLetterTextBox.Text = "не распознан";
+            for (int sampleIndex = 0; sampleIndex < _samples.Length; ++sampleIndex)
+            {
+                if (MathUtil.IsAbout(outputs, _targets[sampleIndex], accuracy))
+                    _resultLetterTextBox.Text = _sampleNames[sampleIndex];
+            }                
         }
     }
 }
