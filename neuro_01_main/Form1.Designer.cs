@@ -32,8 +32,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this._countInputsTextBox = new System.Windows.Forms.TextBox();
             this._countNeuronsTextBox = new System.Windows.Forms.TextBox();
-            this._letterAGridView = new System.Windows.Forms.DataGridView();
-            this._letterBGridView = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this._countSamplesTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -44,43 +42,40 @@
             this.button5 = new System.Windows.Forms.Button();
             this._chooseLetterComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
             this._netOutputsTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this._resultLetterTextBox = new System.Windows.Forms.TextBox();
+            this._resultSampleTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this._letterAGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._letterBGridView)).BeginInit();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._samplesListTable = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this._newLetterGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
-            this.tableLayoutPanel11.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 15);
+            this.label2.Location = new System.Drawing.Point(53, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 13);
             this.label2.TabIndex = 2;
@@ -90,7 +85,7 @@
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(64, 59);
+            this.label3.Location = new System.Drawing.Point(65, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 13);
             this.label3.TabIndex = 3;
@@ -99,8 +94,9 @@
             // _countInputsTextBox
             // 
             this._countInputsTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._countInputsTextBox.Location = new System.Drawing.Point(173, 12);
+            this._countInputsTextBox.Location = new System.Drawing.Point(174, 12);
             this._countInputsTextBox.Name = "_countInputsTextBox";
+            this._countInputsTextBox.ReadOnly = true;
             this._countInputsTextBox.Size = new System.Drawing.Size(37, 20);
             this._countInputsTextBox.TabIndex = 4;
             this._countInputsTextBox.Text = "10";
@@ -108,38 +104,18 @@
             // _countNeuronsTextBox
             // 
             this._countNeuronsTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._countNeuronsTextBox.Location = new System.Drawing.Point(173, 56);
+            this._countNeuronsTextBox.Location = new System.Drawing.Point(174, 56);
             this._countNeuronsTextBox.Name = "_countNeuronsTextBox";
             this._countNeuronsTextBox.Size = new System.Drawing.Size(37, 20);
             this._countNeuronsTextBox.TabIndex = 5;
             this._countNeuronsTextBox.Text = "3";
-            // 
-            // _letterAGridView
-            // 
-            this._letterAGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._letterAGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._letterAGridView.Location = new System.Drawing.Point(3, 3);
-            this._letterAGridView.Name = "_letterAGridView";
-            this._letterAGridView.RowHeadersWidth = 20;
-            this._letterAGridView.Size = new System.Drawing.Size(330, 300);
-            this._letterAGridView.TabIndex = 7;
-            // 
-            // _letterBGridView
-            // 
-            this._letterBGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this._letterBGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._letterBGridView.Location = new System.Drawing.Point(339, 3);
-            this._letterBGridView.Name = "_letterBGridView";
-            this._letterBGridView.RowHeadersWidth = 20;
-            this._letterBGridView.Size = new System.Drawing.Size(330, 300);
-            this._letterBGridView.TabIndex = 8;
             // 
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Location = new System.Drawing.Point(3, 143);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(213, 54);
+            this.button1.Size = new System.Drawing.Size(214, 54);
             this.button1.TabIndex = 9;
             this.button1.Text = "1. Заполнить";
             this.button1.UseVisualStyleBackColor = true;
@@ -148,8 +124,9 @@
             // _countSamplesTextBox
             // 
             this._countSamplesTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this._countSamplesTextBox.Location = new System.Drawing.Point(173, 101);
+            this._countSamplesTextBox.Location = new System.Drawing.Point(174, 101);
             this._countSamplesTextBox.Name = "_countSamplesTextBox";
+            this._countSamplesTextBox.ReadOnly = true;
             this._countSamplesTextBox.Size = new System.Drawing.Size(37, 20);
             this._countSamplesTextBox.TabIndex = 10;
             this._countSamplesTextBox.Text = "2";
@@ -158,7 +135,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(50, 104);
+            this.label1.Location = new System.Drawing.Point(51, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 11;
@@ -167,9 +144,9 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(228, 3);
+            this.button2.Location = new System.Drawing.Point(229, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(219, 200);
+            this.button2.Size = new System.Drawing.Size(220, 200);
             this.button2.TabIndex = 12;
             this.button2.Text = "2. ОБУЧЕНИЕ НЕЙРОСЕТИ";
             this.button2.UseVisualStyleBackColor = true;
@@ -181,7 +158,7 @@
             this._newLetterGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._newLetterGridView.Location = new System.Drawing.Point(3, 3);
             this._newLetterGridView.Name = "_newLetterGridView";
-            this._newLetterGridView.Size = new System.Drawing.Size(528, 324);
+            this._newLetterGridView.Size = new System.Drawing.Size(390, 406);
             this._newLetterGridView.TabIndex = 13;
             // 
             // button3
@@ -189,7 +166,7 @@
             this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button3.Location = new System.Drawing.Point(3, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(216, 79);
+            this.button3.Size = new System.Drawing.Size(214, 79);
             this.button3.TabIndex = 14;
             this.button3.Text = "3. Сформировать сигнал";
             this.button3.UseVisualStyleBackColor = true;
@@ -200,7 +177,7 @@
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.Location = new System.Drawing.Point(3, 118);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(216, 79);
+            this.button4.Size = new System.Drawing.Size(214, 79);
             this.button4.TabIndex = 18;
             this.button4.Text = "4. Сохранить изменения";
             this.button4.UseVisualStyleBackColor = true;
@@ -209,9 +186,9 @@
             // button5
             // 
             this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Location = new System.Drawing.Point(3, 334);
+            this.button5.Location = new System.Drawing.Point(3, 415);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(149, 23);
+            this.button5.Size = new System.Drawing.Size(390, 36);
             this.button5.TabIndex = 19;
             this.button5.Text = "5. Распознование";
             this.button5.UseVisualStyleBackColor = true;
@@ -223,7 +200,7 @@
             this._chooseLetterComboBox.FormattingEnabled = true;
             this._chooseLetterComboBox.Location = new System.Drawing.Point(3, 88);
             this._chooseLetterComboBox.Name = "_chooseLetterComboBox";
-            this._chooseLetterComboBox.Size = new System.Drawing.Size(216, 21);
+            this._chooseLetterComboBox.Size = new System.Drawing.Size(214, 21);
             this._chooseLetterComboBox.TabIndex = 20;
             // 
             // groupBox1
@@ -235,133 +212,6 @@
             this.groupBox1.Size = new System.Drawing.Size(408, 543);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this._countInputsTextBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this._countNeuronsTextBox, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this._countSamplesTextBox, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(213, 134);
-            this.tableLayoutPanel1.TabIndex = 24;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 215);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(678, 325);
-            this.groupBox2.TabIndex = 25;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Обучающие примеры";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this._letterBGridView, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this._letterAGridView, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(672, 306);
-            this.tableLayoutPanel2.TabIndex = 9;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button2, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(678, 206);
-            this.tableLayoutPanel3.TabIndex = 26;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.button1, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel1, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(219, 200);
-            this.tableLayoutPanel4.TabIndex = 27;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this._chooseLetterComboBox, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.button3, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.button4, 0, 2);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(453, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 3;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(222, 200);
-            this.tableLayoutPanel5.TabIndex = 27;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel3, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.groupBox2, 0, 1);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.18341F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.81659F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(684, 543);
-            this.tableLayoutPanel6.TabIndex = 27;
-            // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.ColumnCount = 1;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Controls.Add(this.button5, 0, 1);
-            this.tableLayoutPanel8.Controls.Add(this._newLetterGridView, 0, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 2;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.90909F));
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(396, 454);
-            this.tableLayoutPanel8.TabIndex = 29;
             // 
             // tableLayoutPanel9
             // 
@@ -378,21 +228,6 @@
             this.tableLayoutPanel9.Size = new System.Drawing.Size(402, 524);
             this.tableLayoutPanel9.TabIndex = 30;
             // 
-            // tableLayoutPanel10
-            // 
-            this.tableLayoutPanel10.ColumnCount = 2;
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.5F));
-            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
-            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel6, 0, 0);
-            this.tableLayoutPanel10.Controls.Add(this.groupBox1, 1, 0);
-            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel10.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
-            this.tableLayoutPanel10.RowCount = 1;
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(1104, 549);
-            this.tableLayoutPanel10.TabIndex = 28;
-            // 
             // tableLayoutPanel11
             // 
             this.tableLayoutPanel11.ColumnCount = 2;
@@ -400,7 +235,7 @@
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.Controls.Add(this._netOutputsTextBox, 1, 1);
             this.tableLayoutPanel11.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel11.Controls.Add(this._resultLetterTextBox, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this._resultSampleTextBox, 1, 0);
             this.tableLayoutPanel11.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 463);
@@ -429,13 +264,13 @@
             this.label4.TabIndex = 21;
             this.label4.Text = "Выходы нейронов";
             // 
-            // _resultLetterTextBox
+            // _resultSampleTextBox
             // 
-            this._resultLetterTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._resultLetterTextBox.Location = new System.Drawing.Point(153, 3);
-            this._resultLetterTextBox.Name = "_resultLetterTextBox";
-            this._resultLetterTextBox.Size = new System.Drawing.Size(240, 20);
-            this._resultLetterTextBox.TabIndex = 15;
+            this._resultSampleTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._resultSampleTextBox.Location = new System.Drawing.Point(153, 3);
+            this._resultSampleTextBox.Name = "_resultSampleTextBox";
+            this._resultSampleTextBox.Size = new System.Drawing.Size(240, 20);
+            this._resultSampleTextBox.TabIndex = 15;
             // 
             // label7
             // 
@@ -447,6 +282,146 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "Результат распознования";
             // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 1;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Controls.Add(this.button5, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this._newLetterGridView, 0, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 2;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.90909F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.090909F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(396, 454);
+            this.tableLayoutPanel8.TabIndex = 29;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this._countInputsTextBox, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this._countNeuronsTextBox, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this._countSamplesTextBox, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(214, 134);
+            this.tableLayoutPanel1.TabIndex = 24;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this._samplesListTable);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 215);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(678, 325);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Обучающие примеры";
+            // 
+            // _samplesListTable
+            // 
+            this._samplesListTable.AutoScroll = true;
+            this._samplesListTable.ColumnCount = 1;
+            this._samplesListTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this._samplesListTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._samplesListTable.Location = new System.Drawing.Point(3, 16);
+            this._samplesListTable.Name = "_samplesListTable";
+            this._samplesListTable.RowCount = 1;
+            this._samplesListTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this._samplesListTable.Size = new System.Drawing.Size(672, 306);
+            this._samplesListTable.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button2, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(678, 206);
+            this.tableLayoutPanel3.TabIndex = 26;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this._chooseLetterComboBox, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.button3, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.button4, 0, 2);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(455, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 3;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(220, 200);
+            this.tableLayoutPanel5.TabIndex = 27;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.button1, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel1, 0, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(220, 200);
+            this.tableLayoutPanel4.TabIndex = 27;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel3, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 39.18341F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60.81659F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(684, 543);
+            this.tableLayoutPanel6.TabIndex = 27;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.5F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel6, 0, 0);
+            this.tableLayoutPanel10.Controls.Add(this.groupBox1, 1, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(1104, 549);
+            this.tableLayoutPanel10.TabIndex = 28;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,23 +431,20 @@
             this.Name = "Form1";
             this.Text = "Однослойная нейронная сеть - учебный пример";
             this.Load += new System.EventHandler(this.OnFormLoad);
-            ((System.ComponentModel.ISupportInitialize)(this._letterAGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._letterBGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._newLetterGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.tableLayoutPanel11.PerformLayout();
+            this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel8.ResumeLayout(false);
-            this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel10.ResumeLayout(false);
-            this.tableLayoutPanel11.ResumeLayout(false);
-            this.tableLayoutPanel11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -483,8 +455,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox _countInputsTextBox;
         private System.Windows.Forms.TextBox _countNeuronsTextBox;
-        private System.Windows.Forms.DataGridView _letterAGridView;
-        private System.Windows.Forms.DataGridView _letterBGridView;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox _countSamplesTextBox;
         private System.Windows.Forms.Label label1;
@@ -499,17 +469,17 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
         private System.Windows.Forms.TextBox _netOutputsTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox _resultLetterTextBox;
+        private System.Windows.Forms.TextBox _resultSampleTextBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.TableLayoutPanel _samplesListTable;
     }
 }
 

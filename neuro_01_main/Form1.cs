@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -8,66 +9,66 @@ namespace neuro_01_main
     public partial class Form1 : Form
     {   
         private const double Epsilon = 0.001f;
-        private const int NeuronsCount = 5;
+        private const int DefaultNeuronsCount = 5;
 
-        double[][,] _samples = new double[][,]
+        List<Sample> _samples = null;
+
+        private double[,] _newSample = null;
+
+        private double[][] _targets = null;
+        private double[,] _weightsMtx = null;
+
+        OpenFileDialog _fileDialog = new OpenFileDialog();
+
+        private int NeuronsCount
         {
-            new double[,]
+            get
             {
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
-                { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
-                { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            },
-            new double[,]
-            {
-                { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0 },
-                { 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0 },
-                { 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0 },
-                { 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
-                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
-                { 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
+                try
+                {
+                    return Int32.Parse(_countNeuronsTextBox.Text);
+                }
+                catch(Exception)
+                {
+                    _countNeuronsTextBox.Text = Convert.ToString(DefaultNeuronsCount);
+                    MessageBox.Show(this, "Invalid neurons count");
+                    return DefaultNeuronsCount;
+                }
             }
-        };                
-        string[] _sampleNames = new string[] { "Chevrolet", "Lexus" };
-        private double[,] _newSample;
+        }
 
-        private double[][] _targets;
-        private double[,] _weightsMtx;
-
-
-        private int RowsCount => _samples[0].GetLength(0);
-        private int ColumnsCount => _samples[0].GetLength(1);
+        private int RowsCount => _samples[0].InputsMtx.GetLength(0);
+        private int ColumnsCount => _samples[0].InputsMtx.GetLength(1);
         private int InputsCount => RowsCount * ColumnsCount;
-        private int SamplesCount => _samples.Length;
-        private double[,] ChoosenLetter => _samples[_chooseLetterComboBox.SelectedIndex];
+        private int SamplesCount => _samples.Count;
+        private Sample ChoosenSample => _samples[_chooseLetterComboBox.SelectedIndex];
 
 
         public Form1()
         {
             InitializeComponent();
-            _weightsMtx = new double[InputsCount, NeuronsCount];
-            _newSample = new double[RowsCount, ColumnsCount];
-            _targets = MathUtil.IdentityMatrix(SamplesCount, NeuronsCount);
+            _fileDialog.Filter = "Text files(*.txt)|*.txt";
         }
 
         private void FillGridViewWithMatrix(DataGridView gridView, double[,] mtx)
         {
+            const int columnWidth = 30;
             int rowsCount = mtx.GetLength(0);
             int columnsCount = mtx.GetLength(1);
+
+            gridView.Rows.Clear();
+            gridView.Columns.Clear();
+            for (int col = 0; col < ColumnsCount; col++)
+            {
+                gridView.Columns.Add($"c{col}", $"Hc{col}");
+                gridView.Columns[col].Width = columnWidth;
+            }
+            gridView.Rows.Add(RowsCount - 1);
 
             Debug.Assert(gridView.Rows.Count == rowsCount);
             Debug.Assert(gridView.Columns.Count == columnsCount);
 
-            for(int row = 0; row < rowsCount; ++row)
+            for (int row = 0; row < rowsCount; ++row)
             {
                 for(int col = 0; col < columnsCount; ++col)
                 {
@@ -78,54 +79,74 @@ namespace neuro_01_main
 
         private void OnFillButtonClicked(object sender, EventArgs e)
         {
-            _countInputsTextBox.Text = Convert.ToString(InputsCount);
-            _countNeuronsTextBox.Text = Convert.ToString(NeuronsCount);
-            _countSamplesTextBox.Text = Convert.ToString(SamplesCount);
+            if (_fileDialog.ShowDialog(this) == DialogResult.Cancel)
+                return;
+            
+            try
+            {
+                _samples = Utils.LoadSamples(_fileDialog.FileName);
+            }            
+            catch(Exception exc)
+            {
+                MessageBox.Show(this, exc.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            FillGridViewWithMatrix(_letterAGridView, _samples[0]);
-            FillGridViewWithMatrix(_letterBGridView, _samples[1]);                                            
+            _samplesListTable.Controls.Clear();
+            _samplesListTable.RowCount = _samples.Count;
+            for (int sampleIndex = 0; sampleIndex < _samples.Count; ++sampleIndex)
+            {
+                DataGridView grid = new DataGridView();                         
+                FillGridViewWithMatrix(grid, _samples[sampleIndex].InputsMtx);                
+                grid.Dock = DockStyle.Fill;
+
+                _samplesListTable.Controls.Add(grid, 1, sampleIndex);                  
+                if(sampleIndex < _samplesListTable.RowStyles.Count)
+                {
+                    _samplesListTable.RowStyles[sampleIndex].SizeType = SizeType.Percent;
+                    _samplesListTable.RowStyles[sampleIndex].Height = 100f / _samples.Count;
+                }                              
+                else
+                {
+                    _samplesListTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100f / _samples.Count));
+                }
+            }
+
+            _samplesListTable.AutoScroll = true;           
+
+            _chooseLetterComboBox.Items.Clear();
+            foreach (var sample in _samples)
+                _chooseLetterComboBox.Items.Add(sample.Name);
+
+            _chooseLetterComboBox.SelectedIndex = 0;
+
+            _countNeuronsTextBox.Text = Convert.ToString(NeuronsCount);
+            _countSamplesTextBox.Text = Convert.ToString(_samples.Count);
+            _countInputsTextBox.Text = Convert.ToString(InputsCount);
         }
 
         private void OnFormLoad(object sender, EventArgs e)
         {          
-            const int columnWidth = 30;
-            for (int col = 0; col < ColumnsCount; col++)
-            {
-                string cHeader = String.Format("c{0}", col);
-                string hcHeader = String.Format("Hc{0}", col);
-
-                _letterAGridView.Columns.Add(cHeader, hcHeader);
-                _letterBGridView.Columns.Add(cHeader, hcHeader);
-                _newLetterGridView.Columns.Add(cHeader, hcHeader);
-
-                _letterAGridView.Columns[col].Width = columnWidth;
-                _letterBGridView.Columns[col].Width = columnWidth;
-                _newLetterGridView.Columns[col].Width = columnWidth;
-            }
-
-            _letterAGridView.Rows.Add(RowsCount - 1);
-            _letterBGridView.Rows.Add(RowsCount - 1);
-            _newLetterGridView.Rows.Add(RowsCount - 1);
-
-            _chooseLetterComboBox.Items.AddRange(_sampleNames);
-            _chooseLetterComboBox.SelectedIndex = 0;
-
-            _countNeuronsTextBox.Text = Convert.ToString(NeuronsCount);
-            _countInputsTextBox.Text = Convert.ToString(InputsCount);
-            _countSamplesTextBox.Text = Convert.ToString(SamplesCount);
+            _countNeuronsTextBox.Text = Convert.ToString(DefaultNeuronsCount);
+            _countInputsTextBox.Text = "0";
+            _countSamplesTextBox.Text = "0";
         }
     
         private void OnLearnButtonClicked(object sender, EventArgs e)
         {
+            _weightsMtx = new double[InputsCount, NeuronsCount];
+            _newSample = new double[RowsCount, ColumnsCount];
+            _targets = MathUtil.IdentityMatrix(SamplesCount, NeuronsCount);
+
             // задание входных сигналов
             double[,] inputsMtx = new double[InputsCount, SamplesCount];
             for (int row = 0, inputIndex = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
                 {                         
-                    for(int sampleIndex = 0; sampleIndex < _samples.Length; ++sampleIndex)
+                    for(int sampleIndex = 0; sampleIndex < _samples.Count; ++sampleIndex)
                     {
-                        inputsMtx[inputIndex, sampleIndex] = _samples[sampleIndex][row, col];         
+                        inputsMtx[inputIndex, sampleIndex] = _samples[sampleIndex].InputsMtx[row, col];         
                     }
                     inputIndex++;
                 }
@@ -184,21 +205,23 @@ namespace neuro_01_main
         private void OnGenerateButtonClicked(object sender, EventArgs e)
         {
             _netOutputsTextBox.Text = "";
-            _resultLetterTextBox.Text = "";
+            _resultSampleTextBox.Text = "";
 
-            for (int row = 0; row < RowsCount; row++)
-            {
-                for (int col = 0; col < ColumnsCount; col++)
-                {
-                    _newLetterGridView.Rows[row].Cells[col].Value = ChoosenLetter[row, col] == 1 ? "1" : "";                    
-                }
-            }
+            FillGridViewWithMatrix(_newLetterGridView, ChoosenSample.InputsMtx);
+
+            //for (int row = 0; row < RowsCount; row++)
+            //{
+            //    for (int col = 0; col < ColumnsCount; col++)
+            //    {
+            //        _newLetterGridView.Rows[row].Cells[col].Value = ChoosenSample.InputsMtx[row, col] == 1 ? "1" : "";                    
+            //    }
+            //}
         }
 
         private void OnSaveButtonClicked(object sender, EventArgs e)
         {
             _netOutputsTextBox.Text = "";
-            _resultLetterTextBox.Text = "";
+            _resultSampleTextBox.Text = "";
             for (int row = 0; row < RowsCount; row++)
             {
                 for (int col = 0; col < ColumnsCount; col++)
@@ -213,7 +236,7 @@ namespace neuro_01_main
         private void OnRecognitionButtonClicked(object sender, EventArgs e)
         {
             _netOutputsTextBox.Text = "";
-            _resultLetterTextBox.Text = "";
+            _resultSampleTextBox.Text = "";
 
             double[,] xf = MathUtil.Vectorize(_newSample);
             double[,] yf = MathUtil.Apply(MathUtil.Multiply(MathUtil.Transform(_weightsMtx), xf), MathUtil.ActivationFunction.Sigmoid);
@@ -222,12 +245,12 @@ namespace neuro_01_main
             _netOutputsTextBox.Text = MathUtil.Stringify(outputs);
 
             const double accuracy = 0.5;
-            _resultLetterTextBox.Text = "не распознан";
-            for (int sampleIndex = 0; sampleIndex < _samples.Length; ++sampleIndex)
+            _resultSampleTextBox.Text = "не распознан";
+            for (int sampleIndex = 0; sampleIndex < _samples.Count; ++sampleIndex)
             {
                 if (MathUtil.IsAbout(outputs, _targets[sampleIndex], accuracy))
                 {
-                    _resultLetterTextBox.Text = _sampleNames[sampleIndex];
+                    _resultSampleTextBox.Text = _samples[sampleIndex].Name;
                     break;
                 }
             }                
