@@ -31,7 +31,7 @@ namespace neuro_01_main
                 catch(Exception)
                 {
                     _countNeuronsTextBox.Text = Convert.ToString(DefaultNeuronsCount);
-                    MessageBox.Show(this, "Invalid neurons count");
+                    MessageBox.Show(this, "Invalid neurons count", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return DefaultNeuronsCount;
                 }
             }
