@@ -208,14 +208,6 @@ namespace neuro_01_main
             _resultSampleTextBox.Text = "";
 
             FillGridViewWithMatrix(_newLetterGridView, ChoosenSample.InputsMtx);
-
-            //for (int row = 0; row < RowsCount; row++)
-            //{
-            //    for (int col = 0; col < ColumnsCount; col++)
-            //    {
-            //        _newLetterGridView.Rows[row].Cells[col].Value = ChoosenSample.InputsMtx[row, col] == 1 ? "1" : "";                    
-            //    }
-            //}
         }
 
         private void OnSaveButtonClicked(object sender, EventArgs e)
