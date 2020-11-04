@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace neuro_01_main
+﻿namespace neuro_01_main
 {
     class Sample
     {
