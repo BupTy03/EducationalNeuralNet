@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
-
+using System.IO;
 
 namespace neuro_01_main
 {
@@ -79,6 +79,8 @@ namespace neuro_01_main
 
         private void OnFillButtonClicked(object sender, EventArgs e)
         {
+            _fileDialog.InitialDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            _fileDialog.FileName = "text.txt";
             if (_fileDialog.ShowDialog(this) == DialogResult.Cancel)
                 return;
             
